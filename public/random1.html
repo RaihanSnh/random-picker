@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Picker</title>
+    <link rel="stylesheet" href="css/output.css" />
+</head>
+<body class="bg-blue-900 text-gray-100">
+    <div class="max-w-2xl mx-auto py-8">
+      <form>
+        <div class="mb-4">
+          <label for="listLaki" class="block mb-2 font-bold">Nama Laki-laki:</label>
+          <textarea
+            id="listLaki"
+            name="listLaki"
+            class="w-full px-3 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:shadow-outline-blue focus:bg-white"
+            rows="5"
+            placeholder="Masukkan nama laki-laki, dipisahkan dengan koma"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="listPerempuan" class="block mb-2 font-bold">Nama Perempuan:</label>
+          <textarea
+            id="listPerempuan"
+            name="listPerempuan"
+            class="w-full px-3 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:shadow-outline-blue focus:bg-white"
+            rows="5"
+            placeholder="Masukkan nama perempuan, dipisahkan dengan koma"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="jumlahKelompok" class="block mb-2 font-bold">Jumlah Kelompok:</label>
+          <input
+            type="number"
+            id="jumlahKelompok"
+            name="jumlahKelompok"
+            class="w-full px-3 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:shadow-outline-blue focus:bg-white"
+            placeholder="Masukkan jumlah kelompok"
+            required
+          />
+        </div>
+        <div class="flex justify-center">
+          <button
+            type="button"
+            class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600 focus:outline-none focus:shadow-outline-blue"
+            onClick="random()"
+          >
+            Undi
+          </button>
+        </div>
+      </form>
+      <div class="mt-8">
+        <h2 class="mb-4 font-bold">Hasil:</h2>
+        <div
+          id="hasil"
+          class="w-full p-4 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:shadow-outline-blue focus:bg-white"
+        ></div>
+      </div>
+    </div>
+<script>
+    Array.prototype.random = function () {
+        return this[Math.floor((Math.random()*this.length))];
+    }
+
+    function random() {
+        // Ambil isi text dari input id "listLaki" lalu diubah ke array dan , sebagai pemisahnya
+        const listLaki = document.getElementById("listLaki").value.split(",")
+        // Ambil isi text dari input id "listPerempuan" lalu diubah ke array dan , sebagai pemisahnya
+        const listPerempuan = document.getElementById("listPerempuan").value.split(",")
+        // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
+        let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value)
+        // Hitung jumlah laki-laki dan perempuan
+        const jumlahLaki = listLaki.length
+        const jumlahPerempuan = listPerempuan.length
+        // Hitung jumlah orang per kelompok (dibulatkan ke bawah)
+        const jumlahOrangPerKelompok = Math.floor((jumlahLaki + jumlahPerempuan) / jumlahKelompok)
+        // Buat array kosong untuk menampung kelompok
+        const kelompok = []
+        // Buat perulangan untuk mengambil nama dari setiap kelompok
+        for (let i = 0; i < jumlahKelompok; i++) {
+            // Buat array kosong untuk menampung nama pada kelompok saat ini
+            const namaKelompok = []
+            // Buat perulangan untuk mengambil nama laki-laki secara acak
+            for (let j = 0; j < Math.ceil(jumlahOrangPerKelompok / 2); j++) {
+                // Jika masih tersedia nama laki-laki, ambil secara acak dari array listLaki
+                if (listLaki.length > 0) {
+                    const randomLaki = listLaki.random()
+                    // Hapus nama laki-laki yang sudah terambil dari array listLaki
+                    listLaki.splice(listLaki.indexOf(randomLaki), 1)
+                    // Masukkan nama laki-laki yang sudah terambil ke array namaKelompok
+                    namaKelompok.push(randomLaki)
+                }
+            }
+            // Buat perulangan untuk mengambil nama perempuan secara acak
+            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
+                // Jika masih tersedia nama perempuan, ambil secara acak dari array listPerempuan
+                if (listPerempuan.length > 0) {
+                    const randomPerempuan = listPerempuan.random()
+                    // Hapus nama perempuan yang sudah terambil dari array listPerempuan
+                    listPerempuan.splice(listPerempuan.indexOf(randomPerempuan), 1)
+                    // Masukkan nama perempuan yang sudah terambil ke array namaKelompok
+                    namaKelompok.push(randomPerempuan)
+                }
+            }
+            // Masukkan array namaKelompok ke dalam array kelompok
+            kelompok.push(namaKelompok)
+        }
+        // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
+        const hasilElemen = document.getElementById("hasil")
+        hasilElemen.innerHTML = ""
+        for (let i = 0; i < kelompok.length; i++) {
+            hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
+
+        }
+                }
+
+                // Test function dengan button
+                const buttonRandom = document.getElementById("random")
+                buttonRandom.addEventListener("click", random)
+
+
+</script>
+
+</body>
+</html>
