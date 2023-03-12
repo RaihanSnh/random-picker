@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Picker</title>
-    <link rel="stylesheet" href="css/output.css">
+    <title>AllRandom - Random Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.15/tailwind.min.css">
     <link rel="icon" href="images/rplb.png">
 </head>
 <body class="bg-gray-100">
+<!-- Header -->
+<header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4">
+        <nav class="flex justify-between items-center">
+            <a href="#" class="text-lg font-semibold">AllRandom</a>
+            <div class="flex">
+                <a href="#" class="px-3">Home</a>
+                <a href="#" class="px-3">About</a>
+                <a href="#" class="px-3">Contact</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
 <div class="container mx-auto px-4 py-8">
     <img src="images/rplb.png" alt="Logo" class="mx-auto mb-8" width="100">
     <h1 class="text-4xl font-bold text-center mb-4">Random Picker</h1>
@@ -17,21 +33,75 @@
             <div class="flex items-center">
                 <div class="h-16 w-16 bg-gray-200 rounded-lg mr-4"></div>
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">1</h2>
-                    <p class="text-gray-600 text-sm">Random pick v1</p>
+                    <h2 class="text-2xl font-bold mb-1">Random Picker for Fair Gender-Based Group Division</h2>
+                    <p class="text-gray-600 text-sm">This random picker is designed to fairly divide a group of people into smaller groups with an equal number of males and females. The picker will randomly select names from a list and assign them to groups until there are no more people left.</p>
                 </div>
             </div>
         </a>
-        <a href="#" class="bg-white hover:bg-gray-100 rounded-lg border border-gray-400 px-4 py-2 mr-4 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0" id="left-right">
+        <a href="random2.html" class="bg-white hover:bg-gray-100 rounded-lg border border-gray-400 px-4 py-2 mr-4 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0" id="left-right">
             <div class="flex items-center">
                 <div class="h-16 w-16 bg-gray-200 rounded-lg mr-4"></div>
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">2</h2>
-                    <p class="text-gray-600 text-sm">Random pick v2</p>
+                    <h2 class="text-2xl font-bold mb-1">Equitable Grouping Tool with Elimination Option</h2>
+                    <p class="text-gray-600 text-sm">This option allows you to randomly select a specified number of names from a list containing both male and female names, ensuring a fair distribution. Once a name is selected, it will be removed from the list to prevent it from being selected again in subsequent draws.</p>
                 </div>
             </div>
         </a>
     </div>
 </div>
+
+<div class="fixed bottom-0 right-0 mb-4 mr-4 z-10">
+    <div class="relative">
+        <button class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
+            Follow me on social media
+        </button>
+        <div class="social-panel hidden absolute bottom-0 right-0 p-4 bg-white rounded-lg shadow-lg">
+            <p class="text-gray-600 mb-2">
+                <span class="block">AllRandom</span>
+                <span class="block"> by RaihanSnh</span>
+            </p>
+            <button class="close-btn text-gray-600 hover:text-gray-800 absolute top-0 right-0 mt-2 mr-2">
+                <i class="fa fa-times"></i>
+            </button>
+            <h4 class="text-sm text-uppercase text-gray-600 font-medium mt-4">Follow me on social media</h4>
+            <ul class="flex">
+                <li>
+                    <a href="https://www.facebook.com/raihan.snh?mibextid=ZbWKwL" class="border-2 border-gray-300 text-gray-600 flex items-center justify-center h-12 w-12 rounded-full hover:border-orange-500 hover:text-orange-500">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/RaihanSnh" class="border-2 border-gray-300 text-gray-600 flex items-center justify-center h-12 w-12 rounded-full hover:border-orange-500 hover:text-orange-500">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/raihansnh" class="border-2 border-gray-300 text-gray-600 flex items-center justify-center h-12 w-12 rounded-full hover:border-orange-500 hover:text-orange-500">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/raihan-satya-natha-hamzah-36bb27268/" class="border-2 border-gray-300 text-gray-600 flex items-center justify-center h-12 w-12 rounded-full hover:border-orange-500 hover:text-orange-500">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const floatingBtn = document.querySelector('.bg-blue-500');
+    const socialPanelContainer = document.querySelector('.social-panel');
+    const closeBtn = document.querySelector('.close-btn');
+
+    floatingBtn.addEventListener('click', () => {
+        socialPanelContainer.classList.toggle('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        socialPanelContainer.classList.add('hidden');
+    });
+</script>
 </body>
 </html>

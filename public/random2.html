@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AllRandom</title>
+  <link rel="stylesheet" href="css/output.css" />
+</head>
+<body>
+<form>
+  <label>Nama</label>
+  <br/>
+  <textarea id="listNama"></textarea>
+  <br/>
+  <label>Jumlah:</label>
+  <br/>
+  <input id="jumlahHasil"/>
+  <br/>
+  <br/>
+  <button type="button" onClick="random()">Undi</button>
+  <div style="margin-top: 25px;">
+    <b>Hasil: <span id="hasil"></span></b>
+  </div>
+</form>
+
+<script>
+  Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+  }
+  function random() {
+    // Ambil isi text dari input id "listNama" lalu diubah ke array dan , sebagai pemisahnya
+    const listNama = document.getElementById("listNama").value.split(",")
+
+    // Ambil isi text dari input id "jumlahHasil" lalu diubah ke number dengan function Number(value)
+    let jumlah = Number(document.getElementById("jumlahHasil").value)
+    if (jumlah > listNama.length) { // jika jumlah lebih besar dari list nama yang isi
+      jumlah = listNama.length // ubah jumlah menjadi jumlah list nama yang di isi
+    }
+    const listHasil = [] // variable list hasil
+    for (let i = 0; i < jumlah; i++) { // perulangan hingga (jumlah)x
+      if (listNama.length < 1) { // jika listNama habis (isinya 0/dibawah 1)
+        break; // perulangan berhenti
+      }
+      const hasilDariRandom = listNama.random() // ambil salah satu isi array secara random
+      listHasil.push(hasilDariRandom) // masukkan hasil random ke listHasil
+      const index = listNama.indexOf(hasilDariRandom) // index dari hasilRandom
+      listNama.splice(index, 1) // hapus array dengan index hasilRandom tadi
+    }
+    // ubah listHasil dari array menjadi string pemisahnya ", "
+    // lalu ubah isi dari element dengan id hasil <span id="hasil"></span>
+    document.getElementById("hasil").innerText = listHasil.join(", ")
+    document.getElementById("listNama").value = listNama.join(", ")
+    // hapus listNama yang sudah terpilih
+  }
+</script>
+</body>
+</html>
