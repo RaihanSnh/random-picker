@@ -1,56 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AllRandom</title>
-  <link rel="stylesheet" href="css/output.css" />
+    <meta charset="UTF-8">
+    <title>AllRandom</title>
+    <link rel="stylesheet" href="css/output.css" />
 </head>
-<body>
-<form>
-  <label>Nama</label>
-  <br/>
-  <textarea id="listNama"></textarea>
-  <br/>
-  <label>Jumlah:</label>
-  <br/>
-  <input id="jumlahHasil"/>
-  <br/>
-  <br/>
-  <button type="button" onClick="random()">Undi</button>
-  <div style="margin-top: 25px;">
-    <b>Hasil: <span id="hasil"></span></b>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="container mx-auto px-4 py-8 max-w-lg bg-white rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-4 text-center">AllRandom</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="listLaki">
+        Daftar Nama Laki-laki
+      </label>
+      <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listLaki"></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="listPerempuan">
+        Daftar Nama Perempuan
+      </label>
+      <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listPerempuan"></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="jumlahKelompok">
+        Jumlah Kelompok
+      </label>
+      <input class="w-full px-3 py-2 border rounded-md" type="number" id="jumlahKelompok" min="1" value="1" />
+    </div>
+    <div class="mb-4 flex items-center justify-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="random">
+        Buat Kelompok
+      </button>
+    </div>
   </div>
-</form>
-
+  <div class="mt-8" id="hasil"></div>
+</div>
 <script>
-  Array.prototype.random = function () {
-    return this[Math.floor((Math.random()*this.length))];
-  }
-  function random() {
-    // Ambil isi text dari input id "listNama" lalu diubah ke array dan , sebagai pemisahnya
-    const listNama = document.getElementById("listNama").value.split(",")
+    Array.prototype.random = function () {
+        return this[Math.floor((Math.random()*this.length))];
+    }
 
-    // Ambil isi text dari input id "jumlahHasil" lalu diubah ke number dengan function Number(value)
-    let jumlah = Number(document.getElementById("jumlahHasil").value)
-    if (jumlah > listNama.length) { // jika jumlah lebih besar dari list nama yang isi
-      jumlah = listNama.length // ubah jumlah menjadi jumlah list nama yang di isi
-    }
-    const listHasil = [] // variable list hasil
-    for (let i = 0; i < jumlah; i++) { // perulangan hingga (jumlah)x
-      if (listNama.length < 1) { // jika listNama habis (isinya 0/dibawah 1)
-        break; // perulangan berhenti
-      }
-      const hasilDariRandom = listNama.random() // ambil salah satu isi array secara random
-      listHasil.push(hasilDariRandom) // masukkan hasil random ke listHasil
-      const index = listNama.indexOf(hasilDariRandom) // index dari hasilRandom
-      listNama.splice(index, 1) // hapus array dengan index hasilRandom tadi
-    }
-    // ubah listHasil dari array menjadi string pemisahnya ", "
-    // lalu ubah isi dari element dengan id hasil <span id="hasil"></span>
-    document.getElementById("hasil").innerText = listHasil.join(", ")
-    document.getElementById("listNama").value = listNama.join(", ")
-    // hapus listNama yang sudah terpilih
-  }
+    function random() {
+        // Ambil isi text dari input id "listLaki" lalu diubah ke array dan , sebagai pemisahnya
+        const listLaki = document.getElementById("listLaki").value.split(",")
+        // Ambil isi text dari input id "listPerempuan" lalu diubah ke array dan , sebagai pemisahnya
+        const listPerempuan = document.getElementById("listPerempuan").value.split(",")
+        // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
+        let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value)
+        // Hitung jumlah laki-laki dan perempuan
+        const jumlahLaki = listLaki.length
+        const jumlahPerempuan = listPerempuan.length
+        // Hitung jumlah orang per kelompok (dibulatkan ke bawah)
+        const jumlahOrangPerKelompok = Math.floor((jumlahLaki + jumlahPerempuan) / jumlahKelompok)
+        // Buat array kosong untuk menampung kelompok
+        const kelompok = []
+        // Buat perulangan untuk mengambil nama dari setiap kelompok
+        for (let i = 0; i < jumlahKelompok; i++) {
+            // Buat array kosong untuk menampung nama pada kelompok saat ini
+            const namaKelompok = []
+            // Buat perulangan untuk mengambil nama laki-laki secara acak
+            for (let j = 0; j < Math.ceil(jumlahOrangPerKelompok / 2); j++) {
+                // Jika masih tersedia nama laki-laki, ambil secara acak dari array listLaki
+                if (listLaki.length > 0) {
+                    const randomLaki = listLaki.random()
+                    // Hapus nama laki-laki yang sudah terambil dari array listLaki
+                    listLaki.splice(listLaki.indexOf(randomLaki), 1)
+                    // Masukkan nama laki-laki yang sudah terambil ke array namaKelompok
+                    namaKelompok.push(randomLaki)
+                }
+            }
+            // Buat perulangan untuk mengambil nama perempuan secara acak
+            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
+                // Jika masih tersedia nama perempuan, ambil secara acak dari array listPerempuan
+                if (listPerempuan.length > 0) {
+                    const randomPerempuan = listPerempuan.random()
+                    // Hapus nama perempuan yang sudah terambil dari array listPerempuan
+                    listPerempuan.splice(listPerempuan.indexOf(randomPerempuan), 1)
+                    // Masukkan nama perempuan yang sudah terambil ke array namaKelompok
+                    namaKelompok.push(randomPerempuan)
+                }
+            }
+            // Masukkan array namaKelompok ke dalam array kelompok
+            kelompok.push(namaKelompok)
+        }
+        // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
+        const hasilElemen = document.getElementById("hasil")
+        hasilElemen.innerHTML = ""
+        for (let i = 0; i < kelompok.length; i++) {
+            hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
+
+        }
+                }
+
+                // Test function dengan button
+                const buttonRandom = document.getElementById("random")
+                buttonRandom.addEventListener("click", random)
 </script>
+
 </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AllRandom</title>
+  <link rel="stylesheet" href="css/output.css" />
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="container mx-auto px-4 py-8 max-w-lg bg-white rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-4 text-center">AllRandom</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="listNama">
+        Daftar Nama
+      </label>
+      <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listNama"></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="jumlahHasil">
+        Jumlah
+      </label>
+      <input class="w-full px-3 py-2 border rounded-md" type="number" id="jumlahHasil" min="1" value="1" />
+    </div>
+    <div class="mb-4 flex items-center justify-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="random()">Undi</button>
+    </div>
+  </div>
+  <div class="mt-8" id="hasil"></div>
+</div>
+<script>
+  Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+  }
+  function random() {
+    // Ambil isi text dari input id "listNama" lalu diubah ke array dan , sebagai pemisahnya
+    const listNama = document.getElementById("listNama").value.split(",")
+
+    // Ambil isi text dari input id "jumlahHasil" lalu diubah ke number dengan function Number(value)
+    let jumlah = Number(document.getElementById("jumlahHasil").value)
+    if (jumlah > listNama.length) { // jika jumlah lebih besar dari list nama yang isi
+      jumlah = listNama.length // ubah jumlah menjadi jumlah list nama yang di isi
+    }
+    const listHasil = [] // variable list hasil
+    for (let i = 0; i < jumlah; i++) { // perulangan hingga (jumlah)x
+      if (listNama.length < 1) { // jika listNama habis (isinya 0/dibawah 1)
+        break; // perulangan berhenti
+      }
+      const hasilDariRandom = listNama.random() // ambil salah satu isi array secara random
+      listHasil.push(hasilDariRandom) // masukkan hasil random ke listHasil
+      const index = listNama.indexOf(hasilDariRandom) // index dari hasilRandom
+      listNama.splice(index, 1) // hapus array dengan index hasilRandom tadi
+    }
+    // ubah listHasil dari array menjadi string pemisahnya ", "
+    // lalu ubah isi dari element dengan id hasil <span id="hasil"></span>
+    document.getElementById("hasil").innerText = listHasil.join(", ")
+    document.getElementById("listNama").value = listNama.join(", ")
+    // hapus listNama yang sudah terpilih
+  }
+</script>
+</body>
+</html>

@@ -5,35 +5,27 @@
     <title>AllRandom</title>
     <link rel="stylesheet" href="css/output.css" />
 </head>
-<body class="bg-gray-100">
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-4">AllRandom</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="container mx-auto px-4 py-8 max-w-lg bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4 text-center">AllRandom</h1>
     <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2" for="listLaki">
-        Daftar Nama Laki-laki
-      </label>
-      <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listLaki"></textarea>
+        <label class="block text-gray-700 font-bold mb-2" for="listAnggota">
+            Daftar Nama
+        </label>
+        <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listAnggota" name="listAnggota" rows="4" cols="50"></textarea>
     </div>
     <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2" for="listPerempuan">
-        Daftar Nama Perempuan
-      </label>
-      <textarea class="w-full px-3 py-2 border rounded-md resize-none" id="listPerempuan"></textarea>
+        <label class="block text-gray-700 font-bold mb-2" for="jumlahKelompok">
+            Jumlah kelompok
+        </label>
+        <input class="w-full px-3 py-2 border rounded-md" type="number" id="jumlahKelompok" name="jumlahKelompok" min="1" value="1" />
     </div>
-    <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2" for="jumlahKelompok">
-        Jumlah Kelompok
-      </label>
-      <input class="w-full px-3 py-2 border rounded-md" type="number" id="jumlahKelompok" min="1" value="1" />
+    <div class="mb-4 flex items-center justify-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="random">
+            Buat Kelompok
+        </button>
     </div>
-    <div class="mb-4">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="random">
-        Acak Kelompok
-      </button>
-    </div>
-  </div>
-  <div class="mt-8" id="hasil"></div>
+    <div class="mt-8" id="hasil"></div>
 </div>
 <script>
     Array.prototype.random = function () {
@@ -41,43 +33,29 @@
     }
 
     function random() {
-        // Ambil isi text dari input id "listLaki" lalu diubah ke array dan , sebagai pemisahnya
-        const listLaki = document.getElementById("listLaki").value.split(",")
-        // Ambil isi text dari input id "listPerempuan" lalu diubah ke array dan , sebagai pemisahnya
-        const listPerempuan = document.getElementById("listPerempuan").value.split(",")
+        // Ambil isi text dari input id "listAnggota" lalu diubah ke array dan , sebagai pemisahnya
+        const listAnggota = document.getElementById("listAnggota").value.split(",")
         // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
         let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value)
-        // Hitung jumlah laki-laki dan perempuan
-        const jumlahLaki = listLaki.length
-        const jumlahPerempuan = listPerempuan.length
+        // Hitung jumlah anggota
+        const jumlahAnggota = listAnggota.length
         // Hitung jumlah orang per kelompok (dibulatkan ke bawah)
-        const jumlahOrangPerKelompok = Math.floor((jumlahLaki + jumlahPerempuan) / jumlahKelompok)
+        const jumlahOrangPerKelompok = Math.floor(jumlahAnggota / jumlahKelompok)
         // Buat array kosong untuk menampung kelompok
         const kelompok = []
         // Buat perulangan untuk mengambil nama dari setiap kelompok
         for (let i = 0; i < jumlahKelompok; i++) {
             // Buat array kosong untuk menampung nama pada kelompok saat ini
             const namaKelompok = []
-            // Buat perulangan untuk mengambil nama laki-laki secara acak
-            for (let j = 0; j < Math.ceil(jumlahOrangPerKelompok / 2); j++) {
-                // Jika masih tersedia nama laki-laki, ambil secara acak dari array listLaki
-                if (listLaki.length > 0) {
-                    const randomLaki = listLaki.random()
-                    // Hapus nama laki-laki yang sudah terambil dari array listLaki
-                    listLaki.splice(listLaki.indexOf(randomLaki), 1)
-                    // Masukkan nama laki-laki yang sudah terambil ke array namaKelompok
-                    namaKelompok.push(randomLaki)
-                }
-            }
-            // Buat perulangan untuk mengambil nama perempuan secara acak
-            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
-                // Jika masih tersedia nama perempuan, ambil secara acak dari array listPerempuan
-                if (listPerempuan.length > 0) {
-                    const randomPerempuan = listPerempuan.random()
-                    // Hapus nama perempuan yang sudah terambil dari array listPerempuan
-                    listPerempuan.splice(listPerempuan.indexOf(randomPerempuan), 1)
-                    // Masukkan nama perempuan yang sudah terambil ke array namaKelompok
-                    namaKelompok.push(randomPerempuan)
+            // Buat perulangan untuk mengambil nama anggota secara acak
+            for (let j = 0; j < jumlahOrangPerKelompok; j++) {
+                // Jika masih tersedia anggota, ambil secara acak dari array listAnggota
+                if (listAnggota.length > 0) {
+                    const randomAnggota = listAnggota.random()
+                    // Hapus anggota yang sudah terambil dari array listAnggota
+                    listAnggota.splice(listAnggota.indexOf(randomAnggota), 1)
+                    // Masukkan anggota yang sudah terambil ke array namaKelompok
+                    namaKelompok.push(randomAnggota)
                 }
             }
             // Masukkan array namaKelompok ke dalam array kelompok
@@ -88,14 +66,12 @@
         hasilElemen.innerHTML = ""
         for (let i = 0; i < kelompok.length; i++) {
             hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
-
         }
-                }
+    }
 
-                // Test function dengan button
-                const buttonRandom = document.getElementById("random")
-                buttonRandom.addEventListener("click", random)
+    // Test function dengan button
+    const buttonRandom = document.getElementById("random")
+    buttonRandom.addEventListener("click", random)
 </script>
-
 </body>
 </html>

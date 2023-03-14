@@ -15,9 +15,9 @@
         <nav class="flex justify-between items-center">
             <a href="#" class="text-lg font-semibold">AllRandom</a>
             <div class="flex">
-                <a href="#" class="px-3">Home</a>
-                <a href="#" class="px-3">About</a>
-                <a href="#" class="px-3">Contact</a>
+                <a href="#home" class="px-3">Home</a>
+                <a href="#about" class="px-3">About</a>
+                <a href="#how-to-use" class="px-3">How To Use</a>
             </div>
         </nav>
     </div>
@@ -26,29 +26,63 @@
 <!-- Main Content -->
 <div class="container mx-auto px-4 py-8">
     <img src="images/rplb.png" alt="Logo" class="mx-auto mb-8" width="100">
-    <h1 class="text-4xl font-bold text-center mb-4">Random Picker</h1>
-    <div id="result" class="text-center mb-8"></div>
-    <div class="flex justify-center">
-        <a href="random1.html" class="bg-white hover:bg-gray-100 rounded-lg border border-gray-400 px-4 py-2 mr-4 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0" id="top-bottom">
+    <h1 id="home" class="text-4xl font-bold text-center mb-4">Random Picker</h1>
+    <div class="text-center mb-8"></div>
+    <div class="flex flex-col justify-center items-center">
+        <a href="random1.html" class="w-full lg:w-3/5 xl:w-1/2 bg-white hover:bg-gray-100 rounded-lg border border-gray-400 p-6 mb-6 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0">
             <div class="flex items-center">
-                <div class="h-16 w-16 bg-gray-200 rounded-lg mr-4"></div>
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">Random Picker for Fair Gender-Based Group Division</h2>
-                    <p class="text-gray-600 text-sm">This random picker is designed to fairly divide a group of people into smaller groups with an equal number of males and females. The picker will randomly select names from a list and assign them to groups until there are no more people left.</p>
+                    <h2 class="text-2xl font-bold mb-2">Grouping Randomizer</h2>
+                    <p class="text-gray-600 text-base">This tool uses a random selection process to create groups of individuals in a fair and equitable manner. It ensures that each group contains a diverse and balanced mix of individuals, and that no individual is unfairly excluded or grouped together. With this tool, group division is made simple, efficient, and just.</p>
                 </div>
             </div>
         </a>
-        <a href="random2.html" class="bg-white hover:bg-gray-100 rounded-lg border border-gray-400 px-4 py-2 mr-4 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0" id="left-right">
+        <a href="random2.html" class="w-full lg:w-3/5 xl:w-1/2 bg-white hover:bg-gray-100 rounded-lg border border-gray-400 p-6 mb-6 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0">
             <div class="flex items-center">
-                <div class="h-16 w-16 bg-gray-200 rounded-lg mr-4"></div>
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">Equitable Grouping Tool with Elimination Option</h2>
-                    <p class="text-gray-600 text-sm">This option allows you to randomly select a specified number of names from a list containing both male and female names, ensuring a fair distribution. Once a name is selected, it will be removed from the list to prevent it from being selected again in subsequent draws.</p>
+                    <h2 class="text-2xl font-bold mb-2">Gender-Fair Group Picker</h2>
+                    <p class="text-gray-600 text-base">This random picker is designed to fairly divide a group of people into smaller groups with an equal number of males and females. The picker will randomly select names from a list and assign them to groups until there are no more people left.</p>
+                </div>
+            </div>
+        </a>
+        <a href="random3.html" class="w-full lg:w-3/5 xl:w-1/2 bg-white hover:bg-gray-100 rounded-lg border border-gray-400 p-6 mb-6 transform transition duration-300 ease-in-out hover:-translate-y-1 active:translate-y-0">
+            <div class="flex items-center">
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Randomizer with Removal</h2>
+                    <p class="text-gray-600 text-base">This option allows you to randomly select a specified number of names from a list containing both male and female names, ensuring a fair distribution. Once a name is selected, it will be removed from the list to prevent it from being selected again in subsequent draws.</p>
                 </div>
             </div>
         </a>
     </div>
 </div>
+
+<!--About & how to use-->
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col justify-center items-center">
+        <div class="w-full lg:w-3/5 xl:w-1/2 bg-white rounded-lg border border-gray-400 p-6 mb-6">
+            <h2 id="about" class="text-2xl font-bold mb-2">About AllRandom</h2>
+            <p class="text-gray-600 text-base mb-4">AllRandom is a website that provides various tools for random selection. The website aims to help you with fair and equitable draws, randomization, and group division. By using the tools provided by AllRandom, you can efficiently and easily perform randomization and group division.</p>
+        </div>
+
+        <div class="w-full lg:w-3/5 xl:w-1/2 bg-white rounded-lg border border-gray-400 p-6 mb-6">
+            <h2 id="how-to-use" class="text-2xl font-bold mb-2">How to Use AllRandom</h2>
+            <p class="text-gray-600 text-base mb-4">AllRandom provides three tools for random selection: Grouping Randomizer, Gender-Fair Group Picker, and Randomizer with Removal. Follow these easy steps to use each tool:</p>
+            <ol class="list-decimal list-inside text-gray-600 text-base">
+                <li class="mb-2">
+                    <strong>Grouping Randomizer:</strong> Enter the names of individuals you want to group, determine the number of groups, and click the "Randomize" button. The created groups will be displayed below the "Randomize" button.
+                </li>
+                <li class="mb-2">
+                    <strong>Gender-Fair Group Picker:</strong> Enter the names of individuals you want to group, determine the number of groups, and click the "Randomize" button. The created groups will be displayed below the "Randomize" button.
+                </li>
+                <li class="mb-2">
+                    <strong>Randomizer with Removal:</strong> Enter the names of individuals you want to draw, determine the number of winners, and click the "Pick" button. The names of the winners will be displayed below the "Pick" button. Each selected name will be removed from the list to ensure that no name is selected more than once.
+                </li>
+            </ol>
+            <p>Remember to separate each name with a comma when entering the names.</p>
+        </div>
+    </div>
+</div>
+
 
 <div class="fixed bottom-0 right-0 mb-4 mr-4 z-10">
     <div class="relative">
