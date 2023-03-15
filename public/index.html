@@ -5,19 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AllRandom - Random Picker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.15/tailwind.min.css">
-    <link rel="icon" href="images/rplb.png">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="icon" href="images/AllRandom.png">
+    <style>
+        .loader {
+            -webkit-animation: spin 4s linear infinite; /* Safari */
+            animation: spin 4s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
 <!-- Header -->
-<header class="bg-white shadow">
+<header class="bg-gray-700 shadow">
     <div class="container mx-auto px-4 py-4">
         <nav class="flex justify-between items-center">
-            <a href="#" class="text-lg font-semibold">AllRandom</a>
+            <a href="#" class="text-lg text-gray-100 font-semibold">AllRandom</a>
             <div class="flex">
-                <a href="#home" class="px-3">Home</a>
-                <a href="#about" class="px-3">About</a>
-                <a href="#how-to-use" class="px-3">How To Use</a>
+                <a href="#home" class="text-gray-100 px-3">Home</a>
+                <a href="#about" class="text-gray-100 px-3">About</a>
+                <a href="#how-to-use" class="text-gray-100 px-3">How To Use</a>
             </div>
         </nav>
     </div>
@@ -25,7 +45,7 @@
 
 <!-- Main Content -->
 <div class="container mx-auto px-4 py-8">
-    <img src="images/rplb.png" alt="Logo" class="mx-auto mb-8" width="100">
+    <img src="images/AllRandom.png" class="mx-auto mb-8 loader" alt="Logo" width="100">
     <h1 id="home" class="text-4xl font-bold text-center mb-4">Random Picker</h1>
     <div class="text-center mb-8"></div>
     <div class="flex flex-col justify-center items-center">
@@ -123,7 +143,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const floatingBtn = document.querySelector('.bg-blue-500');
     const socialPanelContainer = document.querySelector('.social-panel');
