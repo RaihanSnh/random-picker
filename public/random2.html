@@ -61,7 +61,7 @@
             // Buat array kosong untuk menampung nama pada kelompok saat ini
             const namaKelompok = []
             // Buat perulangan untuk mengambil nama laki-laki secara acak
-            for (let j = 0; j < Math.ceil(jumlahOrangPerKelompok / 2); j++) {
+            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
                 // Jika masih tersedia nama laki-laki, ambil secara acak dari array listLaki
                 if (listLaki.length > 0) {
                     const randomLaki = listLaki.random()
@@ -82,21 +82,44 @@
                     namaKelompok.push(randomPerempuan)
                 }
             }
+
+            if(i == jumlahKelompok - 1) {
+                let remaining = listLaki.concat(listPerempuan)
+                for (let j = 0; j < remaining.length; j++) {
+                    for (let k = 0; k < kelompok.length; k++) {
+                        const randomRemaining = remaining.random()
+                        kelompok[k].push(randomRemaining)
+
+                        //why cant get the last index??
+
+                        remaining.splice(remaining.indexOf(randomRemaining), 1)
+                    }
+                }
+            }
+
             // Masukkan array namaKelompok ke dalam array kelompok
             kelompok.push(namaKelompok)
         }
         // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
         const hasilElemen = document.getElementById("hasil")
         hasilElemen.innerHTML = ""
+
+        //AKHIR
+        console.log(listLaki)
+        console.log(listPerempuan)
+        
+        //KELOMPOK
+        console.log(kelompok)
+
         for (let i = 0; i < kelompok.length; i++) {
             hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
 
         }
-                }
+    }
 
-                // Test function dengan button
-                const buttonRandom = document.getElementById("random")
-                buttonRandom.addEventListener("click", random)
+    // Test function dengan button
+    const buttonRandom = document.getElementById("random")
+    buttonRandom.addEventListener("click", random)
 </script>
 </body>
 </html>
