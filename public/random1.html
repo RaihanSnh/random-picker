@@ -31,49 +31,40 @@
 </div>
 <script>
     Array.prototype.random = function () {
-        return this[Math.floor((Math.random()*this.length))];
-    }
+        return this[Math.floor((Math.random() * this.length))];
+        };
 
-    function random() {
+        function random() {
         // Ambil isi text dari input id "listAnggota" lalu diubah ke array dan , sebagai pemisahnya
-        const listAnggota = document.getElementById("listAnggota").value.split(",")
-        // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
-        let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value)
-        // Hitung jumlah anggota
-        const jumlahAnggota = listAnggota.length
-        // Hitung jumlah orang per kelompok (dibulatkan ke bawah)
-        const jumlahOrangPerKelompok = Math.floor(jumlahAnggota / jumlahKelompok)
-        // Buat array kosong untuk menampung kelompok
-        const kelompok = []
-        // Buat perulangan untuk mengambil nama dari setiap kelompok
-        for (let i = 0; i < jumlahKelompok; i++) {
-            // Buat array kosong untuk menampung nama pada kelompok saat ini
-            const namaKelompok = []
-            // Buat perulangan untuk mengambil nama anggota secara acak
-            for (let j = 0; j < jumlahOrangPerKelompok; j++) {
-                // Jika masih tersedia anggota, ambil secara acak dari array listAnggota
-                if (listAnggota.length > 0) {
-                    const randomAnggota = listAnggota.random()
-                    // Hapus anggota yang sudah terambil dari array listAnggota
-                    listAnggota.splice(listAnggota.indexOf(randomAnggota), 1)
-                    // Masukkan anggota yang sudah terambil ke array namaKelompok
-                    namaKelompok.push(randomAnggota)
-                }
-            }
-            // Masukkan array namaKelompok ke dalam array kelompok
-            kelompok.push(namaKelompok)
-        }
-        // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
-        const hasilElemen = document.getElementById("hasil")
-        hasilElemen.innerHTML = ""
-        for (let i = 0; i < kelompok.length; i++) {
-            hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
-        }
-    }
+        const listAnggota = document.getElementById("listAnggota").value.split(",");
 
-    // Test function dengan button
-    const buttonRandom = document.getElementById("random")
-    buttonRandom.addEventListener("click", random)
+        // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
+        let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value);
+
+        // Buat array baru yang berisi semua nama anggota, lalu acak urutannya
+        let anggotaAcak = listAnggota.slice();
+        anggotaAcak.sort(() => Math.random() - 0.5);
+
+        // Buat array kosong untuk menampung kelompok
+        const kelompok = [];
+
+        // Bagi array anggotaAcak menjadi beberapa kelompok
+        for (let i = 0; i < jumlahKelompok; i++) {
+            const namaKelompok = anggotaAcak.splice(0, Math.ceil(anggotaAcak.length / (jumlahKelompok - i)));
+            kelompok.push(namaKelompok);
+        }
+
+        // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
+        const hasilElemen = document.getElementById("hasil");
+        hasilElemen.innerHTML = "";
+        for (let i = 0; i < kelompok.length; i++) {
+            hasilElemen.innerHTML += `Kelompok ${i + 1}: ${kelompok[i].join(", ")}<br>`;
+        }
+        }
+
+        // Test function dengan button
+        const buttonRandom = document.getElementById("random");
+        buttonRandom.addEventListener("click", random);
 </script>
 </body>
 </html>

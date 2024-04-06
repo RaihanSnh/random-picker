@@ -38,88 +38,80 @@
   <div class="mt-8" id="hasil"></div>
 </div>
 <script>
-    Array.prototype.random = function () {
-        return this[Math.floor((Math.random()*this.length))];
+    Array.prototype.random = function() {
+      return this[Math.floor((Math.random() * this.length))];
+    };
+
+    function createGroups(listLaki, listPerempuan, jumlahKelompok) {
+      // Hitung jumlah laki-laki dan perempuan
+      const jumlahLaki = listLaki.length;
+      const jumlahPerempuan = listPerempuan.length;
+      const jumlahAnggota = jumlahLaki + jumlahPerempuan;
+
+      // Hitung jumlah orang per kelompok (dibulatkan ke atas)
+      const jumlahOrangPerKelompok = Math.ceil(jumlahAnggota / jumlahKelompok);
+
+      // Buat array kosong untuk menampung kelompok
+      const kelompok = [];
+
+      // Acak urutan anggota laki-laki dan perempuan
+      const anggotaLaki = [...listLaki];
+      const anggotaPerempuan = [...listPerempuan];
+      anggotaLaki.sort(() => Math.random() - 0.5);
+      anggotaPerempuan.sort(() => Math.random() - 0.5);
+
+      // Bagi anggota ke dalam kelompok secara bergantian
+      for (let i = 0; i < jumlahOrangPerKelompok; i++) {
+        for (let j = 0; j < jumlahKelompok; j++) {
+          const namaKelompok = kelompok[j] || [];
+          if (anggotaLaki.length > 0) {
+            namaKelompok.push(anggotaLaki.pop());
+          }
+          if (anggotaPerempuan.length > 0) {
+            namaKelompok.push(anggotaPerempuan.pop());
+          }
+          kelompok[j] = namaKelompok;
+        }
+      }
+
+      // Seimbangkan jumlah anggota per kelompok
+      const minAnggotaPerKelompok = Math.floor(jumlahAnggota / jumlahKelompok);
+      const extraAnggota = jumlahAnggota % jumlahKelompok;
+
+      for (let i = 0; i < kelompok.length; i++) {
+        if (kelompok[i].length < minAnggotaPerKelompok + (i < extraAnggota ? 1 : 0)) {
+          const namaKelompokLain = kelompok.find(k => k.length > minAnggotaPerKelompok + (i < extraAnggota ? 1 : 0));
+          if (namaKelompokLain) {
+            kelompok[i].push(namaKelompokLain.pop());
+          }
+        }
+      }
+
+      return kelompok;
     }
 
     function random() {
-        // Ambil isi text dari input id "listLaki" lalu diubah ke array dan , sebagai pemisahnya
-        const listLaki = document.getElementById("listLaki").value.split(",")
-        // Ambil isi text dari input id "listPerempuan" lalu diubah ke array dan , sebagai pemisahnya
-        const listPerempuan = document.getElementById("listPerempuan").value.split(",")
-        // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
-        let jumlahKelompok = Number(document.getElementById("jumlahKelompok").value)
-        // Hitung jumlah laki-laki dan perempuan
-        const jumlahLaki = listLaki.length
-        const jumlahPerempuan = listPerempuan.length
-        // Hitung jumlah orang per kelompok (dibulatkan ke bawah)
-        const jumlahOrangPerKelompok = Math.floor((jumlahLaki + jumlahPerempuan) / jumlahKelompok)
-        // Buat array kosong untuk menampung kelompok
-        const kelompok = []
-        // Buat perulangan untuk mengambil nama dari setiap kelompok
-        for (let i = 0; i < jumlahKelompok; i++) {
-            // Buat array kosong untuk menampung nama pada kelompok saat ini
-            const namaKelompok = []
-            // Buat perulangan untuk mengambil nama laki-laki secara acak
-            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
-                // Jika masih tersedia nama laki-laki, ambil secara acak dari array listLaki
-                if (listLaki.length > 0) {
-                    const randomLaki = listLaki.random()
-                    // Hapus nama laki-laki yang sudah terambil dari array listLaki
-                    listLaki.splice(listLaki.indexOf(randomLaki), 1)
-                    // Masukkan nama laki-laki yang sudah terambil ke array namaKelompok
-                    namaKelompok.push(randomLaki)
-                }
-            }
-            // Buat perulangan untuk mengambil nama perempuan secara acak
-            for (let j = 0; j < Math.floor(jumlahOrangPerKelompok / 2); j++) {
-                // Jika masih tersedia nama perempuan, ambil secara acak dari array listPerempuan
-                if (listPerempuan.length > 0) {
-                    const randomPerempuan = listPerempuan.random()
-                    // Hapus nama perempuan yang sudah terambil dari array listPerempuan
-                    listPerempuan.splice(listPerempuan.indexOf(randomPerempuan), 1)
-                    // Masukkan nama perempuan yang sudah terambil ke array namaKelompok
-                    namaKelompok.push(randomPerempuan)
-                }
-            }
+      // Ambil isi text dari input id "listLaki" lalu diubah ke array dan , sebagai pemisahnya
+      const listLaki = document.getElementById("listLaki").value.split(",");
+      // Ambil isi text dari input id "listPerempuan" lalu diubah ke array dan , sebagai pemisahnya
+      const listPerempuan = document.getElementById("listPerempuan").value.split(",");
+      // Ambil isi text dari input id "jumlahKelompok" lalu diubah ke number dengan function Number(value)
+      const jumlahKelompok = Number(document.getElementById("jumlahKelompok").value);
 
-            if(i == jumlahKelompok - 1) {
-                let remaining = listLaki.concat(listPerempuan)
-                for (let j = 0; j < remaining.length; j++) {
-                    for (let k = 0; k < kelompok.length; k++) {
-                        const randomRemaining = remaining.random()
-                        kelompok[k].push(randomRemaining)
+      // Panggil fungsi createGroups untuk membuat kelompok
+      const kelompok = createGroups(listLaki, listPerempuan, jumlahKelompok);
 
-                        //why cant get the last index??
-
-                        remaining.splice(remaining.indexOf(randomRemaining), 1)
-                    }
-                }
-            }
-
-            // Masukkan array namaKelompok ke dalam array kelompok
-            kelompok.push(namaKelompok)
-        }
-        // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
-        const hasilElemen = document.getElementById("hasil")
-        hasilElemen.innerHTML = ""
-
-        //AKHIR
-        console.log(listLaki)
-        console.log(listPerempuan)
-        
-        //KELOMPOK
-        console.log(kelompok)
-
-        for (let i = 0; i < kelompok.length; i++) {
-            hasilElemen.innerHTML += `Kelompok ${i+1}: ${kelompok[i].join(", ")}<br>`;
-
-        }
+      // Tampilkan hasil pengundian kelompok pada elemen dengan id "hasil"
+      const hasilElemen = document.getElementById("hasil");
+      hasilElemen.innerHTML = "";
+      for (let i = 0; i < kelompok.length; i++) {
+        hasilElemen.innerHTML += `Kelompok ${i + 1}: ${kelompok[i].join(", ")}<br>`;
+      }
     }
 
     // Test function dengan button
-    const buttonRandom = document.getElementById("random")
-    buttonRandom.addEventListener("click", random)
+    const buttonRandom = document.getElementById("random");
+    buttonRandom.addEventListener("click", random);
 </script>
 </body>
 </html>
